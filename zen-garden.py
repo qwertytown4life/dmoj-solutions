@@ -1,6 +1,5 @@
 import sys
 input = sys.stdin.readline
-Round = lambda x, y: float(format('{:.{}f}').format(x, y))
 
 N = int(input())
 flowers = list(map(int, input().split()))
