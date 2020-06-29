@@ -18,7 +18,7 @@ int main() {
     }
 
     sort(a,a+N);
-    sort(b, b + N);
+    sort(b,b+N);
 
     if (type == 2) {
         reverse(b, b + N);
