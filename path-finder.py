@@ -19,32 +19,27 @@ def isValid(rows,cols,r,c,visArr):
 
 
 def BFS(graph, visited, ROWS, COLS):
-    possibleStarts = []
+    q = Queue()
     for i in graph:
         if i[0] == 0 or i[1] == COLS - 1:
-            possibleStarts.append(i)
-
-    for i in possibleStarts:
-        if visited[i] == 0:
-            q = Queue()
             q.put(i)
             visited[i] = 1
 
-            while not q.empty():
-                r, c = q.get()
-                if r == ROWS - 1 or c == 0:
-                    return False
+    while not q.empty():
+        r, c = q.get()
+        if r == ROWS - 1 or c == 0:
+            return False
 
-                RMoves = [0,0,-1,1,1,1,-1,-1]
-                CMoves = [1,-1,0,0,1,-1,1,-1]
+        RMoves = [0,0,-1,1,1,1,-1,-1]
+        CMoves = [1,-1,0,0,1,-1,1,-1]
 
-                for j in range(8):
-                    rMov = RMoves[j] + r
-                    cMov = CMoves[j] + c
-                    if (rMov,cMov) in graph:
-                        if isValid(ROWS,COLS,rMov,cMov, visited):
-                            q.put((rMov,cMov))
-                            visited[rMov,cMov] = 1
+        for j in range(8):
+            rMov = RMoves[j] + r
+            cMov = CMoves[j] + c
+            if (rMov,cMov) in graph:
+                if isValid(ROWS,COLS,rMov,cMov, visited):
+                    q.put((rMov,cMov))
+                    visited[rMov,cMov] = 1
 
     return True
 
