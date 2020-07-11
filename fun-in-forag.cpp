@@ -49,8 +49,6 @@ int main() {
     }
     cin >> start >> End >> minutes;
 
-
-
     int lo = 0, hi = M;
     while (lo <= hi) {
         int mid = (lo + hi) / 2;
