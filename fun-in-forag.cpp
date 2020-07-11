@@ -1,9 +1,14 @@
 #include <bits/stdc++.h>
-using namespace std;
-//I don't think this should pass :blobsweats:
 
-bool dij(vector<tuple<int, int, int>> graph[200003], int nodes, int begin, int end, int K, int time) {
-    vector<int> dist (nodes+1,INT_MAX);
+#define ll long long
+using namespace std;
+
+int N, M, start, End;
+ll minutes;
+vector<tuple<int, int, int>> graph[200003];
+
+bool dijk(int begin, int end, int K, ll time) {
+    vector<ll> dist (200003,LONG_LONG_MAX);
     deque<int> q;
     dist.at(begin) = 0;
     q.push_front(begin);
@@ -16,7 +21,7 @@ bool dij(vector<tuple<int, int, int>> graph[200003], int nodes, int begin, int e
         inq[cur] = 0;
         for (tuple<int, int, int> thing : graph[cur]) {
             if (get<0>(thing) <= K) {
-                int distance = dist[cur] + get<2>(thing);
+                ll distance = dist[cur] + get<2>(thing);
                 if (dist[get<1>(thing)] > distance) {
                     dist[get<1>(thing)] = distance;
                     if (!inq[get<1>(thing)]) {
@@ -26,33 +31,34 @@ bool dij(vector<tuple<int, int, int>> graph[200003], int nodes, int begin, int e
                 }
             }
         }
+
     }
     return dist[end] < time;
 }
 
-int N, M, start, End, minutes;
-vector<tuple<int, int, int>> graph[200003];
 
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     cin >> N >> M;
+
     for (int i = 1; i <= M; i++) {
         int a, b, w;
         cin >> a >> b >> w;
         graph[a].emplace_back(i,b,w);
         graph[b].emplace_back(i,a,w);
     }
-
     cin >> start >> End >> minutes;
+
+
+
     int lo = 0, hi = M;
     while (lo <= hi) {
         int mid = (lo + hi) / 2;
-        if (dij(graph, N, start, End, mid, minutes)) {
+        if (dijk(start, End, mid, minutes)) {
             hi = mid - 1;
         }
         else (lo = mid + 1);
     }
-
     if (lo <= M) {
         cout << lo << '\n';
     }
