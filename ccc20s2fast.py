@@ -21,10 +21,9 @@ def bfs(cur):
     return 'no'
 
 for i in range(1, N + 1, 1):
-    k = i
     row = list(map(int, raw_input().split()))
     for j in range(1, M + 1, 1):
-        graph[k].append(row[j - 1])
-        k += i
+        graph[i * j].append(row[j - 1])
+
 
 print bfs(1)
