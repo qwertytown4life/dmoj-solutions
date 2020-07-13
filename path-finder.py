@@ -1,20 +1,18 @@
 import sys
 from collections import deque
-
-raw_input = sys.stdin.readline 
+raw_input = sys.stdin.readline
 rows, columns, K = map(int, raw_input().split())
 
-vis = {}
-walls = {}
+vis = set()
+walls = set()
 for i in range(K):
     x, y = map(int, raw_input().split())
-    walls[x - 1,y - 1] = 1
-    vis[x - 1, y - 1] = 0
+    walls.add((x - 1,y - 1))
 
 
 def isValid(rows,cols,r,c,visArr):
     if 0 <= r < rows and 0 <= c < cols:
-        if visArr[r,c] == 0:
+        if (r,c) not in visArr:
             return True
     return False
 
@@ -24,7 +22,7 @@ def BFS(graph, visited, ROWS, COLS):
     for i in graph:
         if i[0] == 0 or i[1] == COLS - 1:
             q.append(i)
-            visited[i] = 1
+            visited.add((i))
 
     while q:
         r, c = q.popleft()
@@ -40,8 +38,9 @@ def BFS(graph, visited, ROWS, COLS):
             if (rMov,cMov) in graph:
                 if isValid(ROWS,COLS,rMov,cMov, visited):
                     q.append((rMov,cMov))
-                    visited[rMov,cMov] = 1
+                    visited.add((rMov,cMov))
 
     return 'YES'
+
 
 print BFS(walls,vis,rows,columns)
