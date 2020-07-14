@@ -1,7 +1,6 @@
 XQ = 0
 YQ = 0
 amount_of_coords = int(input())
-
 XQ, YQ = map(int, input().split(','))
 
 biggestX = XQ
