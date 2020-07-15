@@ -22,7 +22,7 @@ def BFS(graph, visited, ROWS, COLS):
     for i in graph:
         if i[0] == 0 or i[1] == COLS - 1:
             q.append(i)
-            visited.add((i))
+            visited.add(i)
 
     while q:
         r, c = q.popleft()
